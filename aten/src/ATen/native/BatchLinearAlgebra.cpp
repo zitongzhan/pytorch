@@ -2011,12 +2011,15 @@ Tensor& linalg_solve_out(const Tensor& A,
 Tensor linalg_solve(const Tensor& A,
                     const Tensor& B,
                     bool left) {
-  if (A.layout() == kSparseCsr) {
-    return at::_spsolve(A, B, left);
-  }
   auto [result, info] = at::linalg_solve_ex(A, B, left);
   at::_linalg_check_errors(info, "torch.linalg.solve", A.dim() == 2);
   return result;
+}
+
+Tensor linalg_solve_sparse_csr(const Tensor& A,
+                               const Tensor& B,
+                               bool left) {
+  return at::_spsolve(A, B, left);
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ lu_factor ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

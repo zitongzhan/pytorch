@@ -14591,6 +14591,9 @@
 
 - func: linalg_solve(Tensor A, Tensor B, *, bool left=True) -> Tensor
   python_module: linalg
+  dispatch:
+    CompositeExplicitAutograd: linalg_solve
+    SparseCsrCUDA: linalg_solve_sparse_csr
 
 - func: _spsolve(Tensor A, Tensor B, *, bool left=True) -> Tensor
   python_module: sparse
